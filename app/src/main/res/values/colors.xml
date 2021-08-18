@@ -12,6 +12,7 @@
     <color name="evaneos_green_dark">#164845</color>
     <color name="evaneos_green_light">#12B886</color>
 
-
     <color name="rating_colors">#FFD700</color>
+
+    <color name="ink_colors">#52565A</color>
 </resources>

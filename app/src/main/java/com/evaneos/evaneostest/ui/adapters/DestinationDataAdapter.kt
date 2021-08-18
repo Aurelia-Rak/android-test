@@ -1,11 +1,8 @@
-package com.evaneos.evaneostest.adapters
+package com.evaneos.evaneostest.ui.adapters
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.PorterDuff
 import android.graphics.drawable.LayerDrawable
-import android.icu.number.NumberFormatter.with
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,11 +11,9 @@ import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide.with
 import com.evaneos.data.model.Destination
-import com.evaneos.evaneostest.MainActivity
 import com.evaneos.evaneostest.R
-import com.evaneos.evaneostest.Show_Dest_WebView
+import com.evaneos.evaneostest.ui.activity.Show_Dest_WebView
 import com.squareup.picasso.Picasso
 
 class DestinationDataAdapter(

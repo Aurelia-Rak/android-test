@@ -11,8 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EvaneosTest">
-        <activity android:name=".Show_Dest_WebView" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.activity.Show_Dest_WebView" />
+        <activity android:name=".ui.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
