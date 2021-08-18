@@ -1,6 +1,5 @@
-# android-test
+# Android Test Back Up
 
-###Android Test Back Up
 ***Choix Technique***
 
 Pour la partie Design de l'application, j'ai choisi d'utiliser un ConstraintLayout, car elle permet d'afficher les widgets les uns par rapport aux autres grâce à des contraintes, donc il m'a permis d'avoir une grande flexibilité
