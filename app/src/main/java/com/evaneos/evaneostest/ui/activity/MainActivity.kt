@@ -1,7 +1,6 @@
 package com.evaneos.evaneostest.ui.activity
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
@@ -29,11 +28,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        mRecyclerView = findViewById(R.id.main_DestinationRV)
-        erreur = findViewById(R.id.erreurTv)
-        refresh = findViewById(R.id.refresh_button)
-        mprogressBar = findViewById(R.id.progress_bar)
 
+        initialisationVariable()
 
         mMainActivityViewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
 
@@ -47,6 +43,7 @@ class MainActivity : AppCompatActivity() {
                 erreur.text = text
                 setErrorVisibility(errorVisible)
                 clickToUdpate()
+
             }
         }
 
@@ -54,13 +51,18 @@ class MainActivity : AppCompatActivity() {
             errorVisible = false
             setErrorVisibility(errorVisible)
             mAdapter = DestinationDataAdapter(this, it.sortedBy { it.name })
-            val linearLayoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
-            mRecyclerView.layoutManager = linearLayoutManager
-            mRecyclerView.adapter = mAdapter
-            Log.d("message", it.toString())
+            recyclerViewDataInit()
+
         }
 
 
+    }
+
+    private fun initialisationVariable() {
+        mRecyclerView = findViewById(R.id.main_DestinationRV)
+        erreur = findViewById(R.id.erreurTv)
+        refresh = findViewById(R.id.refresh_button)
+        mprogressBar = findViewById(R.id.progress_bar)
     }
 
     private fun setErrorVisibility(errorMess: Boolean) {
@@ -76,12 +78,19 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    //Met à jour la liste des Destinations en cas d'erreur
+
     private fun clickToUdpate() {
         refresh.setOnClickListener {
             updateData()
         }
     }
 
+    private fun recyclerViewDataInit() {
+        val linearLayoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
+        mRecyclerView.layoutManager = linearLayoutManager
+        mRecyclerView.adapter = mAdapter
+    }
 
     //Reactualise l'activity pour reloader les données en cas d'erreur
     private fun updateData() {

@@ -47,7 +47,6 @@ class Show_Dest_WebView : AppCompatActivity() {
         }
 
 
-        //Affiche la page web sur l'application
         mDest_WebView.getDestinationsDetails(id).observe(this) {
             accessOnWebView(it!!.url)
         }
@@ -77,13 +76,13 @@ class Show_Dest_WebView : AppCompatActivity() {
     }
 
     //Retrouve les Data passer dans les Extras
-    fun retrieveDataFromIntent() {
+    private fun retrieveDataFromIntent() {
         id = intent.getLongExtra("destinationid", id)
         destName = intent.getStringExtra("destinationName").toString()
     }
 
     //Accède au site Web de la destination
-    fun accessOnWebView(url: String) {
+    private fun accessOnWebView(url: String) {
         webView!!.webViewClient = object : WebViewClient() {
 
             override fun onPageStarted(view: WebView, url: String, favicon: Bitmap?) {

@@ -32,10 +32,6 @@ class RatingBarSvg @JvmOverloads constructor(
         progressDrawable = drawable
     }
 
-    /*
-     * Converts a drawable to a tiled version of itself. It will recursively
-     * traverse layer and state list drawables.
-     */
     private fun tileify(drawable: Drawable, clip: Boolean): Drawable {
         if (drawable is DrawableWrapper) {
             var inner: Drawable? = drawable.wrappedDrawable

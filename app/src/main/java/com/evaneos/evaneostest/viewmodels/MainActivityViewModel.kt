@@ -25,7 +25,6 @@ class MainActivityViewModel:ViewModel() {
         get() = _errorMessage
 
     init {
-        Log.d("ici", "initialisation")
         clearDestinationList()
     }
 
