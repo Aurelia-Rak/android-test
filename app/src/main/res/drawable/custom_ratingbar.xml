@@ -3,9 +3,9 @@
 
     <item
         android:id="@android:id/background"
-        android:drawable="@drawable/ic_baseline_star_outline_24" />
+        android:drawable="@drawable/ic_baseline_star_outline" />
     <item
         android:id="@android:id/progress"
-        android:drawable="@drawable/ic_baseline_star_24" />
+        android:drawable="@drawable/ic_baseline_star" />
 
 </layer-list>

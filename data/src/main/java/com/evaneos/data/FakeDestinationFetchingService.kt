@@ -1,6 +1,5 @@
 package com.evaneos.data
 
-import android.util.Log
 import com.evaneos.data.factory.DataFactory
 import com.evaneos.data.model.Destination
 import com.evaneos.data.model.DestinationDetails
@@ -10,7 +9,6 @@ import kotlin.random.Random
 class FakeDestinationFetchingService : DestinationFetchingService {
     override suspend fun getDestinations() : List<Destination> = withFakeDelay {
         val number = Random.nextInt(1, 5)
-        Log.d("number", number.toString())
         if (number == 1) {
             throw Exception("Oops, something went wrong")
         }

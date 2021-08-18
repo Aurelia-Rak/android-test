@@ -2,7 +2,6 @@ package com.evaneos.evaneostest.ui.adapters
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -53,7 +52,6 @@ class DestinationDataAdapter(
         if (destinationList != null) {
             return destinationList.size
         }
-        Log.d("message", destinationList.toString())
         return 0
     }
 

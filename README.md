@@ -1,48 +1,35 @@
 # android-test
 
-### Introduction
+###Android Test Back Up
+####Choix Technique
+Pour la partie Design de l'application, j'ai choisi d'utiliser un ConstraintLayout, car elle permet d'afficher les widgets les uns par rapport aux autres grâce à des contraintes, donc il m'a permis d'avoir une grande flexibilité
+pour le ratingBar, j'ai préféré créer un projet différent et l'importer en tant que module, celà m'a permis de réaliser le design presque tel que précisé dans les instructions
 
-Dans ce test, tu vas devoir **construire une UI qui affiche des données** provenant d'une (fake) API.
+Ne souhaitant utiliser que le minimum de dépendances et voulant avoir un programme propre, je n'ai utilisé en majorité que les Coroutines, ViewModel pour pouvoir récupérer et excécuter les thread de l'Api
 
-Nous avons déjà créé le service `FakeDestinationFetchingService` qui va retourner les données. Attention, cette API est un peu lente et ne marche pas toujours très bien ;)
+ViewModelScope me permet d'annuler des coroutines si le ViewModel est effacé pour éviter d'utiliser trop de ressources,
 
-**L'écran d'accueil correspond à la vue Destinations.**
+J'ai quand même voulu ajouter une barre de progression afin que l'utilisateur puisse voir que les données sont en cours de chargement
+Aussi, un texte et un bouton "refresh" en cas d'erreur.
 
-Pour réaliser ce test, tu peux **forker ce repo** et faire l'implémentation de ton coté, tu nous enverras ensuite l'URL de ton repo.
 
-Chez Evaneos, nous accordons beaucoup d'importance à la **qualité du code et à la qualité de l'expérience utilisateur** de nos produits. Dans ce test, notre but n'est pas tant de savoir si tu parviendras à construire ces écrans mais plutôt **la manière dont tu le feras**. N'hésite pas à faire attention aux détails, à être **rigoureux et prévoyant** sur l'expérience utilisateur (lenteur API, qualité UI) et sur **la propreté, la structure et la clarté du code**. N'hésite pas à nous solliciter si tu as des questions.
+####Difficultés rencontrées
+La première difficulté que j'ai rencontré est l'implémentation du programme pour l'écran d'accueil, c'est-à-dire pour le RatingBar, ayant déjà utilisé les modèles SVG pour d'autres langages de programmation
+Ensuite, la deuxième difficulté que j'ai rencontrée est dans l'utilisation de l'architecture MVVM comme vous le savez, je n'ai que des connaissances académiques de l'utilisation de cet architecture mais celà m'a permis d'augmenter encore plus en compétence et de continuer vers cet avancé
+Puis, ça ne m'a pas paru facile de réaliser ce test avec les différentes contraintes de l'API, les délais, les éventuels erreurs qui peuvent survenir et de les appréhender
+Enfin, n'ayant jamais encore réalisé de test unitaire, et le délai imparti arrivant à échéance, je n'ai pas pu le réaliser, malgré celà, ce test m'a donné envie de maitriser cette partie.
+J'aurais également souhaiter utiliser une base de donnée(RoomDatabase) et l'injection de dépendance pour stocker les données, celà aurait rendu le code plus professionnel et plus complet
 
-Nous souhaitons aussi que tu nous montres ta capacité à **implémenter des tests unitaires** (tu n'es pas obligé de tout couvrir, mais essaie de porter une attention particulière à ceux que tu écriras).
 
-Bonus : utiliser de l'injection de dépendances.
 
-### Contraintes
+####Patterns et dépendances
+ -la première utilisation du modèle MVVM dans un projet,
+ -la première fois que je n'utilise que des Constraints Layout et ratingBar avec des SVG dans une application en Kotlin
+-L'utilisation des progressBar avec les coroutines
 
-- Utiliser une architecture **MVVM**
-- Utiliser des **coroutines**
+ ####Ce que j'aimerais améliorer si j'avais eu plus de temps
+ - Réaliser des tests unitaires avec Mockito, JUnit
+ - Utiliser l'injection de dépendances, les bases de données
+ - Améliorer la réalisation du design de l'application au niveau du progressBar
+ - Mieux appréhender les autres éventuels erreurs pour que les utilisateurs ne s'en aperçoivent pas
 
-### Maquettes
-
-iOS : [https://www.figma.com/file/4yIJXkSfo9xACHgG2KN0Yu/App-TestAlternantsMobileDestinationGuide?node-id=1%3A39](https://www.figma.com/file/4yIJXkSfo9xACHgG2KN0Yu/App-TestAlternantsMobileDestinationGuide?node-id=1%3A39)
-
-Android : [https://www.figma.com/file/4yIJXkSfo9xACHgG2KN0Yu/App-TestAlternantsMobileDestinationGuide?node-id=3%3A77](https://www.figma.com/file/4yIJXkSfo9xACHgG2KN0Yu/App-TestAlternantsMobileDestinationGuide?node-id=3%3A77)
-
-### Vue Destinations
-
-Cet écran acceuille les destinations que le service retourne. 
-
-Les destinations doivent être listées par ordre alphabétique.
-
-Lorsque l'utilisateur sélectionne une destination, l'app affiche la vue Détails qui correspond à cette destination.
-
-### Vue Détails
-
-Cet écran n'affiche qu'une webview qui a pour URL celle fournie dans l'objet `DestinationDetails`
-
-### Règles
-
-- Limite autant que possible les dépendances externes et justifie leur utilisation.
-- Ne modifie pas le code du module `data`. Contacte-nous si tu penses qu'il y a un problème !
-- Essaie de faire des commits régulièrement, nous aimerions avoir un aperçu de l'évolution de ton test.
-
-Lorsque tu auras terminé, nous te demandons d'expliquer tes choix techniques, les difficultés rencontrées, les patterns et dépendances que tu as utilisés pour la première fois et ce que tu aurais ajouté ou modifié si tu avais eu plus de temps à allouer au test, dans un fichier readme.
