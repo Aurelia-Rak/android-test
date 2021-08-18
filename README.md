@@ -30,7 +30,7 @@ J'aurais également souhaiter utiliser une base de donnée(RoomDatabase) et l'in
  - la première utilisation du modèle MVVM dans un projet,
  - la première fois que je n'utilise que des Constraints Layout et ratingBar avec des SVG dans une application en Kotlin
  - L'utilisation des progressBar avec les coroutines
- 
+
 
 ****Ce que j'aimerais améliorer si j'avais eu plus de temps****
 
@@ -39,4 +39,5 @@ J'aurais également souhaiter utiliser une base de donnée(RoomDatabase) et l'in
  - Utiliser l'injection de dépendances, les bases de données
  - Améliorer la réalisation du design de l'application au niveau du progressBar
  - Mieux appréhender les autres éventuels erreurs pour que les utilisateurs ne s'en aperçoivent pas
+ - Utiliser les ViewBindings
 
