@@ -82,6 +82,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
+    //Reactualise l'activity pour reloader les données en cas d'erreur
     private fun updateData() {
         with(mMainActivityViewModel) {
             updateDestinationList()
