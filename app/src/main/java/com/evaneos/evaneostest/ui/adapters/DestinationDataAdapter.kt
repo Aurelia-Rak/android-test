@@ -2,7 +2,6 @@ package com.evaneos.evaneostest.ui.adapters
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.drawable.LayerDrawable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -33,7 +32,6 @@ class DestinationDataAdapter(
         (holder as ViewHolder)
         val destinations: Destination? = destinationList?.get(position)
         holder.nom.text = destinations?.name
-        val stars = holder.rating.progressDrawable as LayerDrawable
         holder.rating.rating= destinations?.rating!!.toFloat()
         holder.tag.text = destinations.tag
 
@@ -44,6 +42,7 @@ class DestinationDataAdapter(
 
             val intent_dest = Intent(contexte, Show_Dest_WebView::class.java)
             intent_dest.putExtra("destinationid", destinations.id)
+            intent_dest.putExtra("destinationName", destinations.name)
             contexte.startActivity(intent_dest)
 
         }
