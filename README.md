@@ -23,11 +23,10 @@ J'aurais également souhaiter utiliser une base de donnée(RoomDatabase) et l'in
 
 
 ***Patterns et dépendances***
-
-
- -la première utilisation du modèle MVVM dans un projet,
- -la première fois que je n'utilise que des Constraints Layout et ratingBar avec des SVG dans une application en Kotlin
--L'utilisation des progressBar avec les coroutines
+ - la première utilisation du modèle MVVM dans un projet,
+ - la première fois que je n'utilise que des Constraints Layout et ratingBar avec des SVG dans une application en Kotlin
+ - L'utilisation des progressBar avec les coroutines
+ 
 
 ****Ce que j'aimerais améliorer si j'avais eu plus de temps****
 
