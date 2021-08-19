@@ -82,7 +82,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun clickToUdpate() {
         refresh.setOnClickListener {
-            updateData()
+            onRefreshButtonClicked()
         }
     }
 
@@ -93,7 +93,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     //Reactualise l'activity pour reloader les données en cas d'erreur
-    private fun updateData() {
+    private fun onRefreshButtonClicked() {
         with(mMainActivityViewModel) {
             updateDestinationList()
         }

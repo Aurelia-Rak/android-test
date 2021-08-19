@@ -24,7 +24,7 @@ class MainActivityViewModel:ViewModel() {
         get() = _errorMessage
 
     init {
-        clearDestinationList()
+
     }
 
     fun getDestinations(): LiveData<List<Destination>> {
@@ -50,7 +50,6 @@ class MainActivityViewModel:ViewModel() {
     }
 
     fun clearDestinationList() {
-        destinationsList.value = ArrayList<Destination>()
 
         launchDataLoad { destinationRepository.tryUpdateRecentDestinationCache() }
     }
