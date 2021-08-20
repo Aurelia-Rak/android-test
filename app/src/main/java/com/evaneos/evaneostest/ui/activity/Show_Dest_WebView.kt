@@ -66,10 +66,9 @@ class Show_Dest_WebView : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = destName
         destNameToolbar?.setNavigationOnClickListener {
-
             val intent = Intent(this@Show_Dest_WebView, MainActivity::class.java)
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
-            finish()
         }
     }
 
