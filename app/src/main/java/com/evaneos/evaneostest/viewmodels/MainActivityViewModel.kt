@@ -24,7 +24,7 @@ class MainActivityViewModel:ViewModel() {
         get() = _errorMessage
 
     val destinations: LiveData<List<Destination>>
-    get() = _destinationsList
+        get() = _destinationsList
 
     init {
         getDestinations()
