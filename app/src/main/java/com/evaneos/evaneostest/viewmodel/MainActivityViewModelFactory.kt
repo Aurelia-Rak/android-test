@@ -3,8 +3,7 @@ package com.evaneos.evaneostest.viewmodels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
-class DestWebViewModelFactory(id: Long) :
-    ViewModelProvider.Factory {
+class DestWebViewModelFactory(id: Long) : ViewModelProvider.Factory {
     private val dest_Id: Long
 
     init {

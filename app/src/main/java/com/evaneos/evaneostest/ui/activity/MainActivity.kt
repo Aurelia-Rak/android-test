@@ -17,7 +17,6 @@ import com.evaneos.evaneostest.viewmodels.MainActivityViewModel
 
 
 class MainActivity : AppCompatActivity() {
-
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mAdapter: DestinationDataAdapter
     private lateinit var mMainActivityViewModel: MainActivityViewModel
@@ -53,9 +52,7 @@ class MainActivity : AppCompatActivity() {
             setErrorVisibility(errorVisible)
             mAdapter = DestinationDataAdapter(this, it)
             recyclerViewInitView()
-
         }
-
     }
 
     private fun setRecyclerView(response: UIStateResponse.Success<List<Destination>>) {

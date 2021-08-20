@@ -17,14 +17,11 @@ class Show_Dest_WebViewModel internal constructor(
     destId: Long
 ) : ViewModel() {
     private var _destinationsDetails = MutableLiveData<DestinationDetails?>()
-    private val destinationDetailsRepository = DestinationDetailsRepository(
-        FakeDestinationFetchingService()
-    )
     private var id = destId
-
     private val _progressbar = MutableLiveData<Boolean>(false)
     private val _errorMessage = MutableLiveData<String?>()
-
+    private val destinationDetailsRepository =
+        DestinationDetailsRepository(FakeDestinationFetchingService())
 
     val progressBar: LiveData<Boolean>
         get() = _progressbar
@@ -39,18 +36,10 @@ class Show_Dest_WebViewModel internal constructor(
 
     fun getDestinationsDetails() {
         launchDataLoad {
-            try {
                 val destinationsDataDetails = withContext(Dispatchers.IO) {
-
                     destinationDetailsRepository.getDestinationsDetailsList(id)
                 }
-
                 _destinationsDetails.value = destinationsDataDetails
-
-            } catch (error: Throwable) {
-                _errorMessage.value = error.message
-            }
-
         }
     }
 

@@ -38,7 +38,6 @@ class DestinationDataAdapter(
         Picasso.get().load(destinations.pictureUrl).placeholder(R.drawable.default_image)
             .into(holder.picture)
 
-
         holder.itemView.setOnClickListener {
 
             val intent_dest = Intent(contexte, Show_Dest_WebView::class.java)
@@ -47,7 +46,6 @@ class DestinationDataAdapter(
             contexte.startActivity(intent_dest)
 
         }
-
     }
 
     override fun getItemCount(): Int {
@@ -62,7 +60,5 @@ class DestinationDataAdapter(
         var picture: ImageView = objet.findViewById(R.id.item_image)
         var rating: RatingBar = objet.findViewById(R.id.item_rating)
         var tag: TextView = objet.findViewById(R.id.item_tag)
-
-
     }
 }

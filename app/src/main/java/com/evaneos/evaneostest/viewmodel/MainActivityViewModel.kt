@@ -19,15 +19,12 @@ class MainActivityViewModel : ViewModel() {
     private val _errorMessage = MutableLiveData<String?>()
     private val defaultError = "Something went wrong."
 
-
     val progressBar: LiveData<Boolean>
         get() = _progressbar
     val errorMessage: LiveData<String?>
         get() = _errorMessage
-
     val destinationsList: LiveData<List<Destination>>
         get() = _destinationsList
-
 
     init {
         getDestinations()
@@ -35,23 +32,18 @@ class MainActivityViewModel : ViewModel() {
 
     fun getDestinations() {
         launchDataLoad {
-            // try {
             val destinationsData = withContext(Dispatchers.IO) {
                 destinationRepository.getDestinationsList()
             }
-
             if (!destinationsData.isEmpty())
                 _destinationsList.value = destinationsData.sortedBy { it.name }
             else
                 _errorMessage.value = defaultError
-
-
         }
     }
 
     fun updateDestinationList() {
         _destinationsList.value = ArrayList<Destination>()
-
         launchDataLoad { getDestinations() }
     }
 

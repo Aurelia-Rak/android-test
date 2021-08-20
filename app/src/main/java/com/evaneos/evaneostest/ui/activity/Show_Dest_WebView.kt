@@ -16,7 +16,6 @@ import com.evaneos.evaneostest.viewmodels.DestWebViewModelFactory
 import com.evaneos.evaneostest.viewmodels.Show_Dest_WebViewModel
 
 class Show_Dest_WebView : AppCompatActivity() {
-
     private var webView: WebView? = null
     private lateinit var mDest_WebView: Show_Dest_WebViewModel
     private lateinit var wv_progressBar: ProgressBar
@@ -25,21 +24,18 @@ class Show_Dest_WebView : AppCompatActivity() {
     private var destNameToolbar: Toolbar? = null
     private var id: Long = 0
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_dest_web_view)
 
-
-        initData()
-        retrieveDataFromIntent()
+        initView()
+        initVariable()
         toolBarAction()
 
         mDest_WebView = ViewModelProvider(
             this,
             DestWebViewModelFactory(id)
         ).get(Show_Dest_WebViewModel::class.java)
-
 
         mDest_WebView.progressBar.observe(this) { show ->
             wv_progressBar.visibility = if (show) View.VISIBLE else View.GONE
@@ -51,15 +47,13 @@ class Show_Dest_WebView : AppCompatActivity() {
 
         }
 
-
         mDest_WebView.destionationDetails.observe(this) {
-            accessOnWebView(it?.url.toString())
+            onUrlAccess(it?.url.toString())
         }
-
     }
 
     //initialisation des Ui avec les variables
-    private fun initData() {
+    private fun initView() {
         destNameToolbar = findViewById(R.id.WebView_Toolbar)
         wv_progressBar = findViewById(R.id.wv_progress_bar)
         error_wv = findViewById(R.id.erreurWV)
@@ -77,19 +71,17 @@ class Show_Dest_WebView : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
-
     }
 
     //Retrouve les Data passer dans les Extras
-    private fun retrieveDataFromIntent() {
+    private fun initVariable() {
         id = intent.getLongExtra("destinationid", id)
         destName = intent.getStringExtra("destinationName").toString()
     }
 
     //Accède au site Web de la destination
-    private fun accessOnWebView(url: String) {
+    private fun onUrlAccess(url: String) {
         webView?.webViewClient = object : WebViewClient() {
-
             override fun onPageStarted(view: WebView, url: String, favicon: Bitmap?) {
                 super.onPageStarted(view, url, favicon)
                 view.visibility = View.INVISIBLE
@@ -101,8 +93,8 @@ class Show_Dest_WebView : AppCompatActivity() {
                 view.visibility = View.VISIBLE
                 wv_progressBar.visibility = View.INVISIBLE
             }
-
         }
+
         val webSettings = webView?.settings
         webSettings?.javaScriptEnabled = true
         webView?.loadUrl(url)
