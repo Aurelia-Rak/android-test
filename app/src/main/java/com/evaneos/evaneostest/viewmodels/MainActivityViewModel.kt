@@ -51,11 +51,6 @@ class MainActivityViewModel:ViewModel() {
         }
     }
 
-    fun clearDestinationList() {
-
-        launchDataLoad { destinationRepository.tryUpdateRecentDestinationCache() }
-    }
-
     fun updateDestinationList() {
         _destinationsList.value = ArrayList<Destination>()
 

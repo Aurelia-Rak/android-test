@@ -15,7 +15,7 @@ import kotlinx.coroutines.withContext
 class Show_Dest_WebViewModel internal constructor(
     destid: Long
 ) : ViewModel() {
-    private var destinationsDetails = MutableLiveData<DestinationDetails?>()
+    private var _destinationsDetails = MutableLiveData<DestinationDetails?>()
     private val destinationDetailsRepository = DestinationDetailsRepository(
         FakeDestinationFetchingService()
     )
@@ -24,14 +24,19 @@ class Show_Dest_WebViewModel internal constructor(
     private val _progressbar = MutableLiveData<Boolean>(false)
     private val _errorMessage = MutableLiveData<String?>()
 
+
     val progressBar: LiveData<Boolean>
         get() = _progressbar
     val errorMessage: LiveData<String?>
         get() = _errorMessage
+    val destionationDetails: LiveData<DestinationDetails?>
+        get() = _destinationsDetails
 
+    init {
+        getDestinationsDetails()
+    }
 
-    fun getDestinationsDetails(): LiveData<DestinationDetails?> {
-        //viewModelScope.launch {
+    fun getDestinationsDetails() {
         launchDataLoad {
             try {
                 val destinationsDataDetails = withContext(Dispatchers.IO) {
@@ -39,15 +44,13 @@ class Show_Dest_WebViewModel internal constructor(
                     destinationDetailsRepository.getDestinationsDetailsList(id)
                 }
 
-                destinationsDetails.value = destinationsDataDetails
+                _destinationsDetails.value = destinationsDataDetails
 
             } catch (error: Throwable) {
                     _errorMessage.value = error.message
                 }
-            //   }
 
         }
-        return destinationsDetails
     }
 
     private fun launchDataLoad(block: suspend () -> Unit): Job {

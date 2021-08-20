@@ -35,15 +35,6 @@ class Show_Dest_WebView : AppCompatActivity() {
         retrieveDataFromIntent()
         toolBarAction()
 
-        /*var factory = object : ViewModelProvider.Factory {
-
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return  Show_Dest_WebViewModel(id) as T
-            }
-        }*/
-
-        //mDest_WebView = ViewModelProvider(this)[Show_Dest_WebViewModel::class.java]
-
         mDest_WebView = ViewModelProvider(
             this,
             DestWebViewModelFactory(id)
@@ -61,8 +52,8 @@ class Show_Dest_WebView : AppCompatActivity() {
         }
 
 
-        mDest_WebView.getDestinationsDetails().observe(this) {
-            accessOnWebView(it!!.url)
+        mDest_WebView.destionationDetails.observe(this) {
+            accessOnWebView(it?.url.toString())
         }
 
     }
@@ -78,9 +69,9 @@ class Show_Dest_WebView : AppCompatActivity() {
     //Rajouter des actions au Toolbar
     private fun toolBarAction() {
         setSupportActionBar(destNameToolbar)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.title = destName
-        destNameToolbar!!.setNavigationOnClickListener {
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = destName
+        destNameToolbar?.setNavigationOnClickListener {
 
             val intent = Intent(this@Show_Dest_WebView, MainActivity::class.java)
             startActivity(intent)
@@ -97,7 +88,7 @@ class Show_Dest_WebView : AppCompatActivity() {
 
     //Accède au site Web de la destination
     private fun accessOnWebView(url: String) {
-        webView!!.webViewClient = object : WebViewClient() {
+        webView?.webViewClient = object : WebViewClient() {
 
             override fun onPageStarted(view: WebView, url: String, favicon: Bitmap?) {
                 super.onPageStarted(view, url, favicon)
@@ -112,15 +103,15 @@ class Show_Dest_WebView : AppCompatActivity() {
             }
 
         }
-        val webSettings = webView!!.settings
-        webSettings.javaScriptEnabled = true
-        webView!!.loadUrl(url)
+        val webSettings = webView?.settings
+        webSettings?.javaScriptEnabled = true
+        webView?.loadUrl(url)
     }
 
     //Retour vers la page précédente
     override fun onBackPressed() {
-        if (webView!!.canGoBack()) {
-            webView!!.goBack()
+        if (webView?.canGoBack() == true) {
+            webView?.goBack()
         } else {
             super.onBackPressed()
         }
