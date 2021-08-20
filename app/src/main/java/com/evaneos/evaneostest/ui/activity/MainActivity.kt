@@ -9,7 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.evaneos.data.model.Destination
 import com.evaneos.evaneostest.R
+import com.evaneos.evaneostest.model.entity.UIStateResponse
 import com.evaneos.evaneostest.ui.adapters.DestinationDataAdapter
 import com.evaneos.evaneostest.viewmodels.MainActivityViewModel
 
@@ -28,8 +30,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-        initialisationVariable()
+        initView()
 
         mMainActivityViewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
 
@@ -42,21 +43,26 @@ class MainActivity : AppCompatActivity() {
                 errorVisible = true
                 erreur.text = text
                 setErrorVisibility(errorVisible)
-                clickToUdpate()
+                clickOnRefreshButton()
 
             }
         }
 
-        mMainActivityViewModel.destinations.observe(this) {
+        mMainActivityViewModel.destinationsList.observe(this) {
             errorVisible = false
             setErrorVisibility(errorVisible)
             mAdapter = DestinationDataAdapter(this, it)
-            recyclerViewDataInit()
+            recyclerViewInitView()
 
         }
+
     }
 
-    private fun initialisationVariable() {
+    private fun setRecyclerView(response: UIStateResponse.Success<List<Destination>>) {
+        mAdapter = DestinationDataAdapter(this, response.content)
+    }
+
+    private fun initView() {
         mRecyclerView = findViewById(R.id.main_DestinationRV)
         erreur = findViewById(R.id.erreurTv)
         refresh = findViewById(R.id.refresh_button)
@@ -77,14 +83,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     //Met à jour la liste des Destinations en cas d'erreur
-
-    private fun clickToUdpate() {
+    private fun clickOnRefreshButton() {
         refresh.setOnClickListener {
             onRefreshButtonClicked()
         }
     }
 
-    private fun recyclerViewDataInit() {
+    private fun recyclerViewInitView() {
         val linearLayoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
         mRecyclerView.layoutManager = linearLayoutManager
         mRecyclerView.adapter = mAdapter

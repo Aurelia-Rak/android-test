@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">EvaneosTest</string>
+
+    <!-- Main activity layout String name -->
+    <string name="main_activity_title">Destinations</string>
+    <string name="main_activity_error_text">Erreur</string>
+    <string name="main_activity_refresh_button">Refresh</string>
+
+    <!-- Main activity recyclerview layout string name -->
+    <string name="recyclerview_tag">tag</string>
+    <string name="recyclerview_destination_name">Destination</string>
+
+    <!-- Main activity destination webview View activity layout string name -->
+    <string name="dest_webview_refresh_button">Refresh</string>
+    <string name="dest_webview_activity_error_text">Erreur</string>
+
 </resources>

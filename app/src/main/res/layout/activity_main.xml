@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/evaneos_green"
-            app:title="Destinations"
+            app:title="@string/main_activity_title"
             app:titleTextColor="@color/white" />
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -46,7 +46,7 @@
         android:gravity="center"
         android:textSize="30sp"
         android:layout_marginBottom="200dp"
-        android:text="erreur"
+        android:text="@string/main_activity_error_text"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -72,7 +72,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="150dp"
         android:gravity="center"
-        android:text="Refresh"
+        android:text="@string/main_activity_refresh_button"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/erreurTv"
         app:layout_constraintEnd_toEndOf="parent"
