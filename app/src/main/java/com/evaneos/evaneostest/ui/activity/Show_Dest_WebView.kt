@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
 import com.evaneos.evaneostest.R
+import com.evaneos.evaneostest.viewmodels.DestWebViewModelFactory
 import com.evaneos.evaneostest.viewmodels.Show_Dest_WebViewModel
 
 class Show_Dest_WebView : AppCompatActivity() {
@@ -24,6 +25,7 @@ class Show_Dest_WebView : AppCompatActivity() {
     private var destNameToolbar: Toolbar? = null
     private var id: Long = 0
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_dest_web_view)
@@ -33,7 +35,19 @@ class Show_Dest_WebView : AppCompatActivity() {
         retrieveDataFromIntent()
         toolBarAction()
 
-        mDest_WebView = ViewModelProvider(this)[Show_Dest_WebViewModel::class.java]
+        /*var factory = object : ViewModelProvider.Factory {
+
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return  Show_Dest_WebViewModel(id) as T
+            }
+        }*/
+
+        //mDest_WebView = ViewModelProvider(this)[Show_Dest_WebViewModel::class.java]
+
+        mDest_WebView = ViewModelProvider(
+            this,
+            DestWebViewModelFactory(id)
+        ).get(Show_Dest_WebViewModel::class.java)
 
 
         mDest_WebView.progressBar.observe(this) { show ->
@@ -47,7 +61,7 @@ class Show_Dest_WebView : AppCompatActivity() {
         }
 
 
-        mDest_WebView.getDestinationsDetails(id).observe(this) {
+        mDest_WebView.getDestinationsDetails().observe(this) {
             accessOnWebView(it!!.url)
         }
 
