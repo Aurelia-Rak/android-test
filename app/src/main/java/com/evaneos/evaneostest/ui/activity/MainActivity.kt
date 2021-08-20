@@ -47,15 +47,13 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        mMainActivityViewModel.getDestinations().observe(this) {
+        mMainActivityViewModel.destinations.observe(this) {
             errorVisible = false
             setErrorVisibility(errorVisible)
             mAdapter = DestinationDataAdapter(this, it.sortedBy { it.name })
             recyclerViewDataInit()
 
         }
-
-
     }
 
     private fun initialisationVariable() {

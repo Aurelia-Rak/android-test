@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class MainActivityViewModel:ViewModel() {
-    private var destinationsList = MutableLiveData<List<Destination>>()
+    private var _destinationsList = MutableLiveData<List<Destination>>()
     private val destinationRepository = DestinationRepository(FakeDestinationFetchingService())
     private val _progressbar = MutableLiveData<Boolean>(false)
     private val _errorMessage = MutableLiveData<String?>()
@@ -23,12 +23,15 @@ class MainActivityViewModel:ViewModel() {
     val errorMessage: LiveData<String?>
         get() = _errorMessage
 
-    init {
+    val destinations: LiveData<List<Destination>>
+        get() = _destinationsList
 
+    init {
+        getDestinations()
     }
 
     fun getDestinations(): LiveData<List<Destination>> {
-        viewModelScope.launch {
+        launchDataLoad {
             try {
                 val destinationsData = withContext(Dispatchers.IO) {
 
@@ -37,7 +40,7 @@ class MainActivityViewModel:ViewModel() {
 
 
                 if (!destinationsData.isEmpty())
-                    destinationsList.value = destinationsData
+                    _destinationsList.value = destinationsData
                 else {
                     updateDestinationList()
                 }
@@ -46,7 +49,7 @@ class MainActivityViewModel:ViewModel() {
                 _errorMessage.value = error.message
             }
         }
-        return destinationsList
+        return _destinationsList
     }
 
     fun clearDestinationList() {
@@ -55,7 +58,7 @@ class MainActivityViewModel:ViewModel() {
     }
 
     fun updateDestinationList() {
-        destinationsList.value = ArrayList<Destination>()
+        _destinationsList.value = ArrayList<Destination>()
 
         launchDataLoad { getDestinations() }
     }
