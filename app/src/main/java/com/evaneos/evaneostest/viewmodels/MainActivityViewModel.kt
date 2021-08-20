@@ -24,13 +24,13 @@ class MainActivityViewModel:ViewModel() {
         get() = _errorMessage
 
     val destinations: LiveData<List<Destination>>
-        get() = _destinationsList
+    get() = _destinationsList
 
     init {
         getDestinations()
     }
 
-    fun getDestinations(): LiveData<List<Destination>> {
+    fun getDestinations() {
         launchDataLoad {
             try {
                 val destinationsData = withContext(Dispatchers.IO) {
@@ -49,7 +49,6 @@ class MainActivityViewModel:ViewModel() {
                 _errorMessage.value = error.message
             }
         }
-        return _destinationsList
     }
 
     fun clearDestinationList() {
@@ -74,6 +73,10 @@ class MainActivityViewModel:ViewModel() {
                 _progressbar.value = false
             }
         }
+    }
+
+    fun sortByName() {
+
     }
 
 }
