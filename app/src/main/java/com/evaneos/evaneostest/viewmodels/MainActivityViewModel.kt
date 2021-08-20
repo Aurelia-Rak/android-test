@@ -40,7 +40,7 @@ class MainActivityViewModel:ViewModel() {
 
 
                 if (!destinationsData.isEmpty())
-                    _destinationsList.value = destinationsData
+                    _destinationsList.value = destinationsData.sortedBy { it.name }
                 else {
                     updateDestinationList()
                 }
@@ -73,10 +73,6 @@ class MainActivityViewModel:ViewModel() {
                 _progressbar.value = false
             }
         }
-    }
-
-    fun sortByName() {
-
     }
 
 }

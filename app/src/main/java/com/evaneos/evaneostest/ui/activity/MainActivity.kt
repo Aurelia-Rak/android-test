@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
         mMainActivityViewModel.destinations.observe(this) {
             errorVisible = false
             setErrorVisibility(errorVisible)
-            mAdapter = DestinationDataAdapter(this, it.sortedBy { it.name })
+            mAdapter = DestinationDataAdapter(this, it)
             recyclerViewDataInit()
 
         }
