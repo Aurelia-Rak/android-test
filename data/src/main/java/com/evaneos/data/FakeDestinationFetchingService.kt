@@ -9,7 +9,7 @@ import kotlin.random.Random
 
 class FakeDestinationFetchingService : DestinationFetchingService {
     override suspend fun getDestinations() : List<Destination> = withFakeDelay {
-        val number = Random.nextInt(1, 5)
+        val number = Random.nextInt(1, 2)
         Log.d("number", number.toString())
         if (number == 1) {
             throw Exception("Oops, something went wrong")

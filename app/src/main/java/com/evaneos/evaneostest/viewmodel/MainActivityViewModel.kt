@@ -59,4 +59,8 @@ class MainActivityViewModel : ViewModel() {
             }
         }
     }
+
+    fun itemClick() {
+
+    }
 }

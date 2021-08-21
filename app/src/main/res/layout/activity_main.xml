@@ -71,6 +71,7 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="150dp"
+        android:background="@drawable/ripple_effect"
         android:gravity="center"
         android:text="@string/main_activity_refresh_button"
         android:visibility="gone"
