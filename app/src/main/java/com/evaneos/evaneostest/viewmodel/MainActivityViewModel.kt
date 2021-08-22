@@ -17,18 +17,11 @@ import kotlinx.coroutines.withContext
 class MainActivityViewModel : ViewModel() {
     private var _destinationsList = MutableLiveData<List<Destination>>()
     private val destinationRepository = DestinationRepository(FakeDestinationFetchingService())
-    private val _progressbar = MutableLiveData<Boolean>(false)
     private val _errorMessage = MutableLiveData<String?>()
     private val defaultError = "Something went wrong."
     private val _viewState = MutableLiveData<UIStateResponse>()
 
     val viewState: LiveData<UIStateResponse> = _viewState
-    val progressBar: LiveData<Boolean>
-        get() = _progressbar
-    val errorMessage: LiveData<String?>
-        get() = _errorMessage
-    val destinationsList: LiveData<List<Destination>>
-        get() = _destinationsList
 
     init {
         getDestinations()
@@ -37,10 +30,9 @@ class MainActivityViewModel : ViewModel() {
     fun getDestinations() {
         launchDataLoad {
             val destinationsData = withContext(Dispatchers.IO) {
-                destinationRepository.getDestinationsList()
+                destinationRepository.getDestinationsList().sortedBy { it.name }
             }
             if (!destinationsData.isEmpty()) {
-                _destinationsList.value = destinationsData.sortedBy { it.name }
                 _viewState.postValue(UIStateResponse.Success(destinationsData))
             } else {
                 _errorMessage.value = defaultError
@@ -49,22 +41,13 @@ class MainActivityViewModel : ViewModel() {
         }
     }
 
-    fun updateDestinationList() {
-        _destinationsList.value = ArrayList<Destination>()
-        launchDataLoad { getDestinations() }
-    }
-
     private fun launchDataLoad(block: suspend () -> Unit): Job {
         return viewModelScope.launch {
             try {
-                //  _progressbar.value = true
                 _viewState.postValue(UIStateResponse.Loading)
                 block()
             } catch (error: Throwable) {
-                //_errorMessage.value = error.message
                 _viewState.postValue(error.message?.let { UIStateResponse.Error(it) })
-            } finally {
-                //_progressbar.value = false
             }
         }
     }
@@ -75,6 +58,6 @@ class MainActivityViewModel : ViewModel() {
 
     fun refreshPage() {
         Log.d("ici message", "refresh")
-        updateDestinationList()
+        getDestinations()
     }
 }

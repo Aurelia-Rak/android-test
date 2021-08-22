@@ -23,7 +23,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var erreur: TextView
     private lateinit var refresh: Button
     private lateinit var mprogressBar: ProgressBar
-    private var errorVisible: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,7 +86,7 @@ class MainActivity : AppCompatActivity() {
     //Reactualise l'activity pour reloader les données en cas d'erreur
     private fun onRefreshButtonClicked() {
         with(mMainActivityViewModel) {
-            updateDestinationList()
+            getDestinations()
         }
     }
 }

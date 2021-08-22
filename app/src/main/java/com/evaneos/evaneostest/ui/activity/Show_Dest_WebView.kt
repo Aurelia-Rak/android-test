@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
 import com.evaneos.evaneostest.R
+import com.evaneos.evaneostest.utils.Constants
 import com.evaneos.evaneostest.viewmodels.DestWebViewModelFactory
 import com.evaneos.evaneostest.viewmodels.Show_Dest_WebViewModel
 
@@ -74,8 +75,8 @@ class Show_Dest_WebView : AppCompatActivity() {
 
     //Retrouve les Data passer dans les Extras
     private fun initVariable() {
-        id = intent.getLongExtra("destinationid", id)
-        destName = intent.getStringExtra("destinationName").toString()
+        id = intent.getLongExtra(Constants.INTENT_EXTRA_ID, id)
+        destName = intent.getStringExtra(Constants.INTENT_EXTRA_NAME).toString()
     }
 
     //Accède au site Web de la destination
