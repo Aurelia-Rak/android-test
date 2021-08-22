@@ -32,31 +32,36 @@ class MainActivity : AppCompatActivity() {
         initView()
 
         mMainActivityViewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
-
-        mMainActivityViewModel.progressBar.observe(this) { show ->
-            mprogressBar.visibility = if (show) View.VISIBLE else View.GONE
-        }
-
-        mMainActivityViewModel.errorMessage.observe(this) { text ->
-            text?.let {
-                errorVisible = true
-                erreur.text = text
-                setErrorVisibility(errorVisible)
-                clickOnRefreshButton()
-
+        mMainActivityViewModel.viewState.observe(this) { uiState ->
+            when (uiState) {
+                is UIStateResponse.Loading -> {
+                    mprogressBar.visibility = View.VISIBLE
+                    mRecyclerView.visibility = View.GONE
+                    erreur.visibility = View.GONE
+                    refresh.visibility = View.GONE
+                }
+                is UIStateResponse.Error -> {
+                    erreur.visibility = View.VISIBLE
+                    mprogressBar.visibility = View.GONE
+                    mRecyclerView.visibility = View.GONE
+                    erreur.text = uiState.errorMessage
+                    refresh.visibility = View.VISIBLE
+                    clickOnRefreshButton()
+                }
+                is UIStateResponse.Success -> {
+                    mRecyclerView.visibility = View.VISIBLE
+                    mprogressBar.visibility = View.GONE
+                    erreur.visibility = View.GONE
+                    refresh.visibility = View.GONE
+                    setRecyclerView(uiState.destinationsList)
+                }
             }
-        }
-
-        mMainActivityViewModel.destinationsList.observe(this) {
-            errorVisible = false
-            setErrorVisibility(errorVisible)
-            mAdapter = DestinationDataAdapter(this, it)
-            recyclerViewInitView()
         }
     }
 
-    private fun setRecyclerView(response: UIStateResponse.Success<List<Destination>>) {
-        mAdapter = DestinationDataAdapter(this, response.content)
+    private fun setRecyclerView(response: List<Destination>) {
+        mAdapter = DestinationDataAdapter(this, response)
+        recyclerViewInitView()
     }
 
     private fun initView() {
@@ -64,19 +69,6 @@ class MainActivity : AppCompatActivity() {
         erreur = findViewById(R.id.erreurTv)
         refresh = findViewById(R.id.refresh_button)
         mprogressBar = findViewById(R.id.progress_bar)
-    }
-
-    private fun setErrorVisibility(errorMess: Boolean) {
-        if (errorMess) {
-            erreur.visibility = View.VISIBLE
-            refresh.visibility = View.VISIBLE
-            mRecyclerView.visibility = View.GONE
-
-        } else {
-            erreur.visibility = View.GONE
-            refresh.visibility = View.GONE
-            mRecyclerView.visibility = View.VISIBLE
-        }
     }
 
     //Met à jour la liste des Destinations en cas d'erreur

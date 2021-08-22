@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.evaneos.data.model.Destination
 import com.evaneos.evaneostest.R
 import com.evaneos.evaneostest.ui.activity.Show_Dest_WebView
+import com.evaneos.evaneostest.utils.Constants
 import com.squareup.picasso.Picasso
 
 class DestinationDataAdapter(
@@ -21,6 +22,7 @@ class DestinationDataAdapter(
 
     private val contexte: Context = mContext
     private val destinationList: List<Destination>? = destinationsList
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view: View = LayoutInflater.from(contexte)
@@ -41,8 +43,8 @@ class DestinationDataAdapter(
         holder.itemView.setOnClickListener {
 
             val intent_dest = Intent(contexte, Show_Dest_WebView::class.java)
-            intent_dest.putExtra("destinationid", destinations.id)
-            intent_dest.putExtra("destinationName", destinations.name)
+            intent_dest.putExtra(Constants.INTENT_EXTRA_ID, destinations.id)
+            intent_dest.putExtra(Constants.INTENT_EXTRA_NAME, destinations.name)
             contexte.startActivity(intent_dest)
 
         }
