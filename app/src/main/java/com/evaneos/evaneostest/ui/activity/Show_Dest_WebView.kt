@@ -11,8 +11,9 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
+import com.evaneos.data.model.DestinationDetails
 import com.evaneos.evaneostest.R
-import com.evaneos.evaneostest.model.entity.DetailsWebViewState
+import com.evaneos.evaneostest.model.entity.UIStateResponse
 import com.evaneos.evaneostest.utils.Constants
 import com.evaneos.evaneostest.viewmodels.DestWebViewModelFactory
 import com.evaneos.evaneostest.viewmodels.Show_Dest_WebViewModel
@@ -23,6 +24,7 @@ class Show_Dest_WebView : AppCompatActivity() {
     private lateinit var wv_progressBar: ProgressBar
     private lateinit var error_wv: TextView
     private var destName: String = ""
+    private lateinit var response: UIStateResponse.Success<DestinationDetails>
     private var destNameToolbar: Toolbar? = null
     private var id: Long = 0
 
@@ -41,19 +43,20 @@ class Show_Dest_WebView : AppCompatActivity() {
 
         mDest_WebView.viewState_wv.observe(this) { uiState ->
             when (uiState) {
-                is DetailsWebViewState.Loading -> {
+                is UIStateResponse.Loading -> {
                     wv_progressBar.visibility = View.VISIBLE
                     error_wv.visibility = View.GONE
                 }
-                is DetailsWebViewState.Error -> {
+                is UIStateResponse.Error -> {
                     error_wv.visibility = View.VISIBLE
                     wv_progressBar.visibility = View.GONE
                     error_wv.text = uiState.errorMessage
                 }
-                is DetailsWebViewState.Success -> {
+                is UIStateResponse.Success<*> -> {
                     wv_progressBar.visibility = View.GONE
                     error_wv.visibility = View.GONE
-                    onUrlAccess(uiState.destinationsDetails.url)
+                    response = uiState as UIStateResponse.Success<DestinationDetails>
+                    onUrlAccess(response.content.url)
                 }
             }
         }

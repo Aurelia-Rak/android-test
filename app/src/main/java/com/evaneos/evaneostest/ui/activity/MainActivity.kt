@@ -13,6 +13,7 @@ import com.evaneos.data.model.Destination
 import com.evaneos.evaneostest.R
 import com.evaneos.evaneostest.model.entity.UIStateResponse
 import com.evaneos.evaneostest.ui.adapters.DestinationDataAdapter
+import com.evaneos.evaneostest.ui.isInstanceOf
 import com.evaneos.evaneostest.viewmodels.MainActivityViewModel
 
 
@@ -47,19 +48,20 @@ class MainActivity : AppCompatActivity() {
                     refresh.visibility = View.VISIBLE
                     clickOnRefreshButton()
                 }
-                is UIStateResponse.Success -> {
+                is UIStateResponse.Success<*> -> {
                     mRecyclerView.visibility = View.VISIBLE
                     mprogressBar.visibility = View.GONE
                     erreur.visibility = View.GONE
                     refresh.visibility = View.GONE
-                    setRecyclerView(uiState.destinationsList)
+                    if (isInstanceOf<UIStateResponse.Success<List<Destination>>>(uiState))
+                        setRecyclerView(uiState as UIStateResponse.Success<List<Destination>>)
                 }
             }
         }
     }
 
-    private fun setRecyclerView(response: List<Destination>) {
-        mAdapter = DestinationDataAdapter(this, response)
+    private fun setRecyclerView(response: UIStateResponse.Success<List<Destination>>) {
+        mAdapter = DestinationDataAdapter(this, response.content)
         recyclerViewInitView()
     }
 

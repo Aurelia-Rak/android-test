@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.evaneos.data.FakeDestinationFetchingService
-import com.evaneos.evaneostest.model.entity.DetailsWebViewState
+import com.evaneos.evaneostest.model.entity.UIStateResponse
 import com.evaneos.evaneostest.repositories.DestinationDetailsRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -19,8 +19,8 @@ class Show_Dest_WebViewModel internal constructor(
     private val destinationDetailsRepository =
         DestinationDetailsRepository(FakeDestinationFetchingService())
     private var id = destId
-    private val _viewState_wv = MutableLiveData<DetailsWebViewState>()
-    val viewState_wv: LiveData<DetailsWebViewState> = _viewState_wv
+    private val _viewState_wv = MutableLiveData<UIStateResponse>()
+    val viewState_wv: LiveData<UIStateResponse> = _viewState_wv
 
     init {
         getDestinationsDetails()
@@ -32,16 +32,16 @@ class Show_Dest_WebViewModel internal constructor(
                 val destinationsDataDetails = withContext(Dispatchers.IO) {
                     destinationDetailsRepository.getDestinationsDetailsList(id)
                 }
-                _viewState_wv.postValue(DetailsWebViewState.Success(destinationsDataDetails))
+                _viewState_wv.postValue(UIStateResponse.Success(destinationsDataDetails))
             } catch (error: Throwable) {
-                _viewState_wv.postValue(error.message?.let { DetailsWebViewState.Error(it) })
+                _viewState_wv.postValue(error.message?.let { UIStateResponse.Error(it) })
             }
         }
     }
 
     private fun launchDataLoad(block: suspend () -> Unit): Job {
         return viewModelScope.launch {
-            _viewState_wv.postValue(DetailsWebViewState.Loading)
+            _viewState_wv.postValue(UIStateResponse.Loading)
                 block()
         }
     }
