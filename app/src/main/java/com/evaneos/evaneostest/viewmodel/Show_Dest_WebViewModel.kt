@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.evaneos.data.FakeDestinationFetchingService
-import com.evaneos.data.model.DestinationDetails
+import com.evaneos.evaneostest.model.entity.DetailsWebViewState
 import com.evaneos.evaneostest.repositories.DestinationDetailsRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -16,19 +16,11 @@ import kotlinx.coroutines.withContext
 class Show_Dest_WebViewModel internal constructor(
     destId: Long
 ) : ViewModel() {
-    private var _destinationsDetails = MutableLiveData<DestinationDetails?>()
-    private var id = destId
-    private val _progressbar = MutableLiveData<Boolean>(false)
-    private val _errorMessage = MutableLiveData<String?>()
     private val destinationDetailsRepository =
         DestinationDetailsRepository(FakeDestinationFetchingService())
-
-    val progressBar: LiveData<Boolean>
-        get() = _progressbar
-    val errorMessage: LiveData<String?>
-        get() = _errorMessage
-    val destionationDetails: LiveData<DestinationDetails?>
-        get() = _destinationsDetails
+    private var id = destId
+    private val _viewState_wv = MutableLiveData<DetailsWebViewState>()
+    val viewState_wv: LiveData<DetailsWebViewState> = _viewState_wv
 
     init {
         getDestinationsDetails()
@@ -36,23 +28,21 @@ class Show_Dest_WebViewModel internal constructor(
 
     fun getDestinationsDetails() {
         launchDataLoad {
+            try {
                 val destinationsDataDetails = withContext(Dispatchers.IO) {
                     destinationDetailsRepository.getDestinationsDetailsList(id)
                 }
-                _destinationsDetails.value = destinationsDataDetails
+                _viewState_wv.postValue(DetailsWebViewState.Success(destinationsDataDetails))
+            } catch (error: Throwable) {
+                _viewState_wv.postValue(error.message?.let { DetailsWebViewState.Error(it) })
+            }
         }
     }
 
     private fun launchDataLoad(block: suspend () -> Unit): Job {
         return viewModelScope.launch {
-            try {
-                _progressbar.value = true
+            _viewState_wv.postValue(DetailsWebViewState.Loading)
                 block()
-            } catch (error: Throwable) {
-                _errorMessage.value = error.message
-            } finally {
-                _progressbar.value = false
-            }
         }
     }
 }

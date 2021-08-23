@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
 import com.evaneos.evaneostest.R
+import com.evaneos.evaneostest.model.entity.DetailsWebViewState
 import com.evaneos.evaneostest.utils.Constants
 import com.evaneos.evaneostest.viewmodels.DestWebViewModelFactory
 import com.evaneos.evaneostest.viewmodels.Show_Dest_WebViewModel
@@ -38,18 +39,23 @@ class Show_Dest_WebView : AppCompatActivity() {
             DestWebViewModelFactory(id)
         ).get(Show_Dest_WebViewModel::class.java)
 
-        mDest_WebView.progressBar.observe(this) { show ->
-            wv_progressBar.visibility = if (show) View.VISIBLE else View.GONE
-        }
-
-        mDest_WebView.errorMessage.observe(this) { text ->
-            error_wv.text = text
-            error_wv.visibility = View.VISIBLE
-
-        }
-
-        mDest_WebView.destionationDetails.observe(this) {
-            onUrlAccess(it?.url.toString())
+        mDest_WebView.viewState_wv.observe(this) { uiState ->
+            when (uiState) {
+                is DetailsWebViewState.Loading -> {
+                    wv_progressBar.visibility = View.VISIBLE
+                    error_wv.visibility = View.GONE
+                }
+                is DetailsWebViewState.Error -> {
+                    error_wv.visibility = View.VISIBLE
+                    wv_progressBar.visibility = View.GONE
+                    error_wv.text = uiState.errorMessage
+                }
+                is DetailsWebViewState.Success -> {
+                    wv_progressBar.visibility = View.GONE
+                    error_wv.visibility = View.GONE
+                    onUrlAccess(uiState.destinationsDetails.url)
+                }
+            }
         }
     }
 

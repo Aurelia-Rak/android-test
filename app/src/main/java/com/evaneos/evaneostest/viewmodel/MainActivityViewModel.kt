@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.evaneos.data.FakeDestinationFetchingService
-import com.evaneos.data.model.Destination
 import com.evaneos.evaneostest.model.entity.UIStateResponse
 import com.evaneos.evaneostest.repositories.DestinationRepository
 import kotlinx.coroutines.Dispatchers
@@ -15,12 +14,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class MainActivityViewModel : ViewModel() {
-    private var _destinationsList = MutableLiveData<List<Destination>>()
     private val destinationRepository = DestinationRepository(FakeDestinationFetchingService())
-    private val _errorMessage = MutableLiveData<String?>()
     private val defaultError = "Something went wrong."
     private val _viewState = MutableLiveData<UIStateResponse>()
-
     val viewState: LiveData<UIStateResponse> = _viewState
 
     init {
@@ -35,7 +31,6 @@ class MainActivityViewModel : ViewModel() {
             if (!destinationsData.isEmpty()) {
                 _viewState.postValue(UIStateResponse.Success(destinationsData))
             } else {
-                _errorMessage.value = defaultError
                 _viewState.postValue(UIStateResponse.Error(defaultError))
             }
         }
