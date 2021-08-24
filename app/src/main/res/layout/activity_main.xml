@@ -89,7 +89,6 @@
             android:clickable="true"
             android:focusable="true"
             android:gravity="center"
-            android:onClick="@{() -> refresh.refreshPage()}"
             android:text="@string/main_activity_refresh_button"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/erreurTv"

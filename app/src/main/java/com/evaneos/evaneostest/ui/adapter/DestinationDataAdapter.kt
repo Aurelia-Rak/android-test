@@ -23,7 +23,6 @@ class DestinationDataAdapter(
     private val contexte: Context = mContext
     private val destinationList: List<Destination>? = destinationsList
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view: View = LayoutInflater.from(contexte)
             .inflate(R.layout.main_activity_list_destination, parent, false)

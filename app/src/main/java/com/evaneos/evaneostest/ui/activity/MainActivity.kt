@@ -58,6 +58,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
     }
 
     private fun setRecyclerView(response: UIStateResponse.Success<List<Destination>>) {
