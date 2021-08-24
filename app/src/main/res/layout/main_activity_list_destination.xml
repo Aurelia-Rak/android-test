@@ -2,20 +2,18 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
     <data>
-
         <variable
             name="destination"
             type="com.evaneos.data.model.Destination" />
 
         <variable
-            name="handlers"
-            type="com.evaneos.evaneostest.viewmodels.MainActivityViewModel" />
+            name="viewmodel"
+            type="com.evaneos.evaneostest.viewmodel.ItemDestinationViewModel" />
     </data>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/card_view"
+        android:id="@+id/item_destination"
         android:layout_width="match_parent"
         android:layout_height="280dp"
         android:layout_margin="16dp"
@@ -24,6 +22,7 @@
         android:clickable="true"
         android:clipChildren="false"
         android:clipToPadding="false"
+        android:onClick="@{viewmodel::onItemClick}"
         android:elevation="4dp"
         android:focusable="true"
         card_view:cardCornerRadius="20dp"
@@ -59,6 +58,7 @@
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent"
                 card_view:layout_constraintVertical_bias="0.639"
+                android:text="@{destination.name}"
                 tools:text="@string/recyclerview_destination_name" />
 
             <com.grdk.ratingbarsvg.RatingBarSvg
@@ -69,7 +69,7 @@
                 android:layout_gravity="center_vertical"
                 android:isIndicator="true"
                 android:progressDrawable="@drawable/custom_ratingbar"
-                android:rating="3"
+                android:rating="@{destination.rating}"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toBottomOf="@+id/item_title" />
 
@@ -84,6 +84,7 @@
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold"
+                android:text="@{destination.tag}"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toBottomOf="@+id/item_rating"
                 tools:text="@string/recyclerview_tag" />

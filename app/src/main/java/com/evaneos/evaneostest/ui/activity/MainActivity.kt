@@ -6,11 +6,12 @@ import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.evaneos.data.model.Destination
 import com.evaneos.evaneostest.R
+import com.evaneos.evaneostest.databinding.ActivityMainBinding
 import com.evaneos.evaneostest.model.entity.UIStateResponse
 import com.evaneos.evaneostest.ui.adapters.DestinationDataAdapter
 import com.evaneos.evaneostest.ui.isInstanceOf
@@ -24,14 +25,17 @@ class MainActivity : AppCompatActivity() {
     private lateinit var erreur: TextView
     private lateinit var refresh: Button
     private lateinit var mprogressBar: ProgressBar
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         initView()
 
-        mMainActivityViewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
+        mMainActivityViewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
+        binding.viewmodel = mMainActivityViewModel
+
+
         mMainActivityViewModel.viewState.observe(this) { uiState ->
             when (uiState) {
                 is UIStateResponse.Loading -> {
@@ -46,7 +50,7 @@ class MainActivity : AppCompatActivity() {
                     mRecyclerView.visibility = View.GONE
                     erreur.text = uiState.errorMessage
                     refresh.visibility = View.VISIBLE
-                    clickOnRefreshButton()
+                    // clickOnRefreshButton()
                 }
                 is UIStateResponse.Success<*> -> {
                     mRecyclerView.visibility = View.VISIBLE
@@ -58,7 +62,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
     }
 
     private fun setRecyclerView(response: UIStateResponse.Success<List<Destination>>) {
@@ -67,29 +70,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-        mRecyclerView = findViewById(R.id.main_DestinationRV)
-        erreur = findViewById(R.id.erreurTv)
-        refresh = findViewById(R.id.refresh_button)
-        mprogressBar = findViewById(R.id.progress_bar)
-    }
-
-    //Met à jour la liste des Destinations en cas d'erreur
-    private fun clickOnRefreshButton() {
-        refresh.setOnClickListener {
-            onRefreshButtonClicked()
-        }
+        mRecyclerView = binding.mainDestinationRV
+        erreur = binding.erreurTv
+        refresh = binding.refreshButton
+        mprogressBar = binding.progressBar
     }
 
     private fun recyclerViewInitView() {
-        val linearLayoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
-        mRecyclerView.layoutManager = linearLayoutManager
         mRecyclerView.adapter = mAdapter
-    }
-
-    //Reactualise l'activity pour reloader les données en cas d'erreur
-    private fun onRefreshButtonClicked() {
-        with(mMainActivityViewModel) {
-            getDestinations()
-        }
+        mRecyclerView.setHasFixedSize(true)
     }
 }

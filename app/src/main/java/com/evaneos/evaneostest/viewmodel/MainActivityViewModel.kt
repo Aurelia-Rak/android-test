@@ -1,25 +1,21 @@
 package com.evaneos.evaneostest.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.evaneos.data.FakeDestinationFetchingService
-import com.evaneos.data.model.Destination
 import com.evaneos.evaneostest.model.entity.UIStateResponse
 import com.evaneos.evaneostest.repositories.DestinationRepository
-import com.evaneos.evaneostest.utils.SingleLiveEvent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class MainActivityViewModel : ViewModel() {
+class MainActivityViewModel() : ViewModel() {
     private val destinationRepository = DestinationRepository(FakeDestinationFetchingService())
     private val defaultError = "Something went wrong."
     private val _viewState = MutableLiveData<UIStateResponse>()
-    val navigateToDetail = SingleLiveEvent<Destination>()
     val viewState: LiveData<UIStateResponse> = _viewState
 
     init {
@@ -50,12 +46,7 @@ class MainActivityViewModel : ViewModel() {
         }
     }
 
-    fun itemClick(destinationListeDetail: Destination) {
-        navigateToDetail.value = destinationListeDetail
-    }
-
-    fun refreshPage() {
-        Log.d("ici message", "refresh")
+    fun onRefresh() {
         getDestinations()
     }
 }

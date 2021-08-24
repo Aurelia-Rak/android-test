@@ -5,13 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
-            name="destination"
-            type="com.evaneos.data.model.Destination" />
-
-        <variable
-            name="refresh"
+            name="viewmodel"
             type="com.evaneos.evaneostest.viewmodels.MainActivityViewModel" />
     </data>
 
@@ -91,6 +86,7 @@
             android:gravity="center"
             android:text="@string/main_activity_refresh_button"
             android:visibility="gone"
+            android:onClick="@{()->viewmodel.onRefresh()}"
             app:layout_constraintBottom_toBottomOf="@id/erreurTv"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
