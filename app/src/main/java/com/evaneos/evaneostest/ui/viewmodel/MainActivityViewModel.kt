@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class MainActivityViewModel() : ViewModel() {
-    private val destinationRepository = DestinationRepository(FakeDestinationFetchingService())
+    val destinationRepository = DestinationRepository(FakeDestinationFetchingService())
     private val defaultError = "Something went wrong."
     private val _viewState = MutableLiveData<UIStateResponse>()
     val viewState: LiveData<UIStateResponse> = _viewState
