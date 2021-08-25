@@ -9,7 +9,7 @@
 
         <variable
             name="viewmodel"
-            type="com.evaneos.evaneostest.viewmodel.ItemDestinationViewModel" />
+            type="com.evaneos.evaneostest.ui.viewmodel.ItemDestinationViewModel" />
     </data>
 
     <androidx.cardview.widget.CardView
