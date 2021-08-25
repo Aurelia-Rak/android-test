@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.evaneos.data.model.Destination
 import com.evaneos.evaneostest.R
 import com.evaneos.evaneostest.databinding.MainActivityListDestinationBinding
-import com.evaneos.evaneostest.viewmodel.ItemDestinationViewModel
+import com.evaneos.evaneostest.ui.viewmodel.ItemDestinationViewModel
 import com.squareup.picasso.Picasso
 
 class DestinationDataAdapter(
