@@ -50,7 +50,6 @@ class MainActivity : AppCompatActivity() {
                     mRecyclerView.visibility = View.GONE
                     erreur.text = uiState.errorMessage
                     refresh.visibility = View.VISIBLE
-                    // clickOnRefreshButton()
                 }
                 is UIStateResponse.Success<*> -> {
                     mRecyclerView.visibility = View.VISIBLE

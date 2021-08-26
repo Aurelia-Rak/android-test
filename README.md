@@ -1,18 +1,5 @@
 # Android Test Back Up
 
-***Choix Technique***
-
-Pour la partie Design de l'application, j'ai choisi d'utiliser un ConstraintLayout, car elle permet d'afficher les widgets les uns par rapport aux autres grâce à des contraintes, donc il m'a permis d'avoir une grande flexibilité
-pour le ratingBar, j'ai préféré créer un projet différent et l'importer en tant que module, celà m'a permis de réaliser le design presque tel que précisé dans les instructions
-
-Ne souhaitant utiliser que le minimum de dépendances et voulant avoir un programme propre, je n'ai utilisé en majorité que les Coroutines, ViewModel pour pouvoir récupérer et excécuter les thread de l'Api
-
-ViewModelScope me permet d'annuler des coroutines si le ViewModel est effacé pour éviter d'utiliser trop de ressources,
-
-J'ai quand même voulu ajouter une barre de progression afin que l'utilisateur puisse voir que les données sont en cours de chargement
-Aussi, un texte et un bouton "refresh" en cas d'erreur.
-
-
 ***Difficultés rencontrées***
 
 La première difficulté que j'ai rencontré est l'implémentation du programme pour l'écran d'accueil, c'est-à-dire pour le RatingBar, ayant déjà utilisé les modèles SVG pour d'autres langages de programmation

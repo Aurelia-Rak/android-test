@@ -58,5 +58,4 @@
         app:layout_constraintTop_toBottomOf="@id/AppBar_Webview"
         tools:text="@string/dest_webview_activity_error_text" />
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>

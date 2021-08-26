@@ -13,6 +13,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
 import com.evaneos.data.model.DestinationDetails
 import com.evaneos.evaneostest.R
+import com.evaneos.evaneostest.databinding.ActivityDestinationdetailWebviewBinding
 import com.evaneos.evaneostest.model.entity.UIStateResponse
 import com.evaneos.evaneostest.utils.Constants
 import com.evaneos.evaneostest.viewmodels.DestWebViewModelFactory
@@ -27,6 +28,7 @@ class DestinationDetail_WebView : AppCompatActivity() {
     private lateinit var response: UIStateResponse.Success<DestinationDetails>
     private var destNameToolbar: Toolbar? = null
     private var id: Long = 0
+    private lateinit var binding_wv: ActivityDestinationdetailWebviewBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
