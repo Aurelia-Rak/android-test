@@ -2,7 +2,7 @@ package com.evaneos.evaneostest
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.evaneos.data.FakeDestinationFetchingService
-import com.evaneos.evaneostest.model.MockDestinationDataProvider.MockPeopleDataProvider.Companion.getMockedDestination
+import com.evaneos.evaneostest.model.MockDestinationDataProvider.Companion.getMockedDestination
 import com.evaneos.evaneostest.repositories.DestinationRepository
 import com.evaneos.evaneostest.viewmodels.MainActivityViewModel
 import junit.framework.Assert.assertEquals
