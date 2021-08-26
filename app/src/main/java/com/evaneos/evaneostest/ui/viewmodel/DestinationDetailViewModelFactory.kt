@@ -4,13 +4,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
 class DestWebViewModelFactory(id: Long) : ViewModelProvider.Factory {
-    private val dest_Id: Long
+    private val destinationId: Long
 
     init {
-        dest_Id = id
+        destinationId = id
     }
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return DestinationDetail_WebViewModel(dest_Id) as T
+        return DestinationDetail_WebViewModel(destinationId) as T
     }
 }
