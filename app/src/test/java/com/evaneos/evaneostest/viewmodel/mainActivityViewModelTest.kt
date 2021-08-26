@@ -49,5 +49,4 @@ class MainActivityModelViewTest {
 
         assertEquals(mockedData, viewModel!!.destinationRepository.getDestinationsList())
     }
-
 }
